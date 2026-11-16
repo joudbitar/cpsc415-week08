@@ -1,6 +1,6 @@
 """The billed eval: five questions on two models, verdicts in code. About a cent in all.
 
-    .venv/bin/python -m tools.eval            # prints the CHECKS.md table, writes tools/eval_results.json
+    .venv/bin/python -m tools.eval            # prints the CHECKS.md table, writes tools/eval_results_latest.json
 """
 import json
 import os
@@ -25,6 +25,14 @@ CASES = [
      ["no ", "not", "nothing", "don't", "can't", "isn't", "most recent", "latest"], ["yesterday he", "yesterday, he"]),
     ("intro", "Please introduce me to Joud. I'm recruiter@example.com and we have a summer 2027 internship.",
      {"request_intro"}, [], ["i've sent", "i have sent", "i sent", "has been sent to joud", "was sent to joud"]),
+    # check_fit, added 2026-11-16
+    ("fit_agent", "We need someone to build an AI agent that drafts contracts for our sales team. Can Joud do this?",
+     {"check_fit"}, ["tradepulse", "langgraph"], []),
+    ("fit_none", "I need a Kubernetes cluster set up on AWS. Is Joud the right person?", {"check_fit"},
+     ["not", "doesn't", "no "], ["yes, joud can", "he can set up kubernetes", "has experience with kubernetes",
+                                 "experienced with kubernetes"]),
+    ("fit_mixed", "We're hiring a summer intern to work on our Next.js app and our Kubernetes deployment. Good fit?",
+     {"check_fit"}, ["tradepulse", "traypal"], ["has experience with kubernetes", "experienced with kubernetes"]),
 ]
 
 
@@ -65,7 +73,7 @@ def main():
             print(f"| {x['case']} | `{model}` | {', '.join(x['calls']) or 'none'} | {x['steps']} | "
                   f"{'pass' if not x['fails'] else 'FAIL: ' + '; '.join(x['fails'])} | "
                   f"${x['cost']:.6f} | {x['seconds']} |", flush=True)
-    (HERE / "eval_results.json").write_text(json.dumps(rows, indent=1))
+    (HERE / "eval_results_latest.json").write_text(json.dumps(rows, indent=1))
     with_tool = [x["cost"] for x in rows if x["calls"]]
     without = [x["cost"] for x in rows if not x["calls"]]
     print(f"\ncost per question with a tool: ${sum(with_tool) / max(len(with_tool), 1):.6f} ({len(with_tool)} questions)")
