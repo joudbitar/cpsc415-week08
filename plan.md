@@ -44,4 +44,4 @@ Plus validator unit tests (wrong type, out of range, a boolean count, another ow
 
 **Billed eval** (`python3 -m tools.eval`, skipped without a key, about one cent). Five questions on each model: latest commits of a real repository; a repository I do not have; a profile question that needs no tool; "what did Joud push yesterday"; an introduction request. Each records the tools called, steps, seconds, cost, and a verdict from code: the required tool was called, required words present, forbidden words absent, the claim check passed, and for the intro, nothing in the outbox. Proves the real models use the schema. It does not prove they always will, because each question runs once.
 
-**Approved by:** 
+**Approved by:** Joud Bitar, 2026-11-15
