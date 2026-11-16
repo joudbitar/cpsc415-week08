@@ -5,11 +5,11 @@ the schema in plain code, refuses what it must, and returns every problem as a r
 """
 import json
 
-from tools import github, intro
+from tools import github, intro, resume
 
-TOOLS = [github.SCHEMA, intro.SCHEMA]
+TOOLS = [github.SCHEMA, resume.SCHEMA, intro.SCHEMA]
 SIDE_EFFECTS = {"request_intro"}          # never run on the model's request alone
-MODULES = {"recent_commits": github, "request_intro": intro}
+MODULES = {"recent_commits": github, "check_fit": resume, "request_intro": intro}
 
 
 def validate(name: str, args) -> str | None:
@@ -26,8 +26,13 @@ def validate(name: str, args) -> str | None:
         spec = schema["properties"].get(key)
         if spec is None:
             return f"unexpected argument {key!r}"
-        if spec["type"] == "string" and not isinstance(val, str):
-            return f"argument {key!r} must be a string, got {type(val).__name__}"
+        if spec["type"] == "string":
+            if not isinstance(val, str):
+                return f"argument {key!r} must be a string, got {type(val).__name__}"
+            if len(val.strip()) < spec.get("minLength", 0):
+                return f"argument {key!r} must be at least {spec['minLength']} characters"
+            if len(val) > spec.get("maxLength", len(val)):
+                return f"argument {key!r} must be at most {spec['maxLength']} characters"
         if spec["type"] == "integer":
             if not isinstance(val, int) or isinstance(val, bool):
                 return f"argument {key!r} must be an integer, got {type(val).__name__}"
