@@ -69,4 +69,4 @@ Implements spec behaviors 9 to 12.
 ### Proof
 No-key tests for the six cases in step 1, free. The billed eval adds three questions per model, about a third of a cent: a contract-drafting AI agent (must call `check_fit` and name TradePulse or LangGraph), a Kubernetes-on-AWS job (must call it and say the resume does not show it), and an internship asking for Next.js and Kubernetes (must name a Next.js entry and say Kubernetes is not shown).
 
-**Approved by:** 
+**Approved by:** Joud Bitar, 2026-11-16

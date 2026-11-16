@@ -46,4 +46,4 @@ The resume lives in `resume.json`, copied from my resume without my phone number
 
 Not in scope: judging seniority, quoting prices or availability, and anything the resume does not say.
 
-**Approved by:** 
+**Approved by:** Joud Bitar, 2026-11-16
