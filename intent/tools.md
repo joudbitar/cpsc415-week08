@@ -35,3 +35,15 @@ A second tool, `request_intro(email, message)`, exists to test the permission ru
 - Whether a visitor ever asks about commits, or whether this tool mostly costs a second call for nothing. The eval measures the cost; only the site's logs can answer the first half.
 
 **Approved by:** Joud Bitar, 2026-11-15
+
+## Addendum, 2026-11-16: a second tool, `check_fit(task)`
+
+I rarely push to public repositories. Most of my work is client code or private, so `recent_commits` mostly finds nothing new. The question visitors bring is different: "we need someone to build X, can Joud do it?"
+
+`check_fit(task)` takes the job or task the visitor described and returns the entries on my resume that match it: the role or project, the dates, and the bullet that shows the work. It also names any technology in the task that my resume does not show. The chatbot can then say "yes, he has done this, at TradePulse" for the parts that matched, and must say plainly which parts the resume does not cover. It never says I can do something with no matching entry behind it.
+
+The resume lives in `resume.json`, copied from my resume without my phone number, email or GPA, because this repository is public. Matching is plain code (keyword tags on each entry), so the program decides what counts as evidence and the model only writes the sentence.
+
+Not in scope: judging seniority, quoting prices or availability, and anything the resume does not say.
+
+**Approved by:** 

@@ -45,3 +45,28 @@ Plus validator unit tests (wrong type, out of range, a boolean count, another ow
 **Billed eval** (`python3 -m tools.eval`, skipped without a key, about one cent). Five questions on each model: latest commits of a real repository; a repository I do not have; a profile question that needs no tool; "what did Joud push yesterday"; an introduction request. Each records the tools called, steps, seconds, cost, and a verdict from code: the required tool was called, required words present, forbidden words absent, the claim check passed, and for the intro, nothing in the outbox. Proves the real models use the schema. It does not prove they always will, because each question runs once.
 
 **Approved by:** Joud Bitar, 2026-11-15
+
+## Week 8 addendum: `check_fit`
+
+Implements spec behaviors 9 to 12.
+
+### Files
+- `resume.json`: experience, projects, volunteering and skills from my resume, each entry with `tags`.
+- `tools/resume.py`: the `check_fit` schema and function.
+- `tools/registry.py`: add the schema and the module. `validate()` gains string `minLength` and `maxLength`.
+- `chatbot.py`: one paragraph in the system prompt (behavior 11).
+- `tools/eval.py`: three more questions.
+
+### Order of work
+1. Tests first against a stub that raises `NotImplementedError`: a matching task returns the TradePulse entry with its LangGraph bullet; a task with only unknown technology returns no matches and lists it in `not_on_resume`; a mixed task returns both; matching is whole-word ("go" does not match "good"); a too-short task is an error result; through the loop, the result reaches the model as a `tool` message. Run red. Commit.
+2. `tools/resume.py`, the registry change, the prompt. Run green. Commit.
+3. The eval with eight questions on both models. Update `CHECKS.md`. Commit.
+
+### Risks
+- Keyword tags miss a task phrased in other words ("an app that reads PDFs" matches nothing unless a tag says `pdf`). The test set and the eval show which phrasings work. More tags fix it one phrasing at a time.
+- A model that reads one matched tag as "yes to everything". Question 7 asks for Next.js and Kubernetes together to catch it.
+
+### Proof
+No-key tests for the six cases in step 1, free. The billed eval adds three questions per model, about a third of a cent: a contract-drafting AI agent (must call `check_fit` and name TradePulse or LangGraph), a Kubernetes-on-AWS job (must call it and say the resume does not show it), and an internship asking for Next.js and Kubernetes (must name a Next.js entry and say Kubernetes is not shown).
+
+**Approved by:** 

@@ -15,6 +15,7 @@ Implements `intent/profile-chatbot.md` (the chatbot, specified in full in `joudb
 - **Language:** Python 3.13, same as the chatbot. **Why:** the loop is a dozen lines around a chat call the chatbot already makes, and GitHub's REST API needs only `urllib` from the standard library. Java was the alternative; it would mean a second runtime on Vercel for one function.
 - **Model:** `minimax/minimax-m3`, the class model, with reasoning left on. **Comparison:** `xiaomi/mimo-v2.6-flash`, the default in the portfolio spec, with hidden reasoning off (it returns nothing otherwise, from Week 5). Both are in OpenRouter's list of models that support `tools`.
 - **Interfaces:** `tools.loop.run(question, system, model, client, max_steps=4)` returns `{answer, steps, stopped_by, cost, calls, pending, check}`. `chatbot.answer(question)` returns the same dictionary with the trace in `steps`.
+- **Data:** `resume.json`, my resume without phone, email or GPA, with tags on each entry.
 - **Dependencies:** `openrouter` (the SDK used since Week 2, for the chat call with `tools`), `pytest` and `ruff` for development. GitHub is called with `urllib`, no library.
 
 ### Behaviors
@@ -26,6 +27,12 @@ Implements `intent/profile-chatbot.md` (the chatbot, specified in full in `joudb
 6. **Side effects wait for a person.** `request_intro` is in `SIDE_EFFECTS`. When the model asks for it, the program does not run it. The result tells the model the request is waiting for Joud's confirmation, and the call is listed in `pending`. It runs only when the caller passes `allow_side_effects=True`, which nothing on the site does.
 7. **The claim check.** After the answer, plain code reads it. A commit hash in the answer must match a hash a tool returned. A date in the answer (`2026-11-14`, `Nov 14`, `November 14`) must match a commit date a tool returned or appear in the profile. A `joudbitar/<name>` repository in the answer must be in the profile or in a tool call. Anything else is listed in `check.unsupported`. The check does not change the answer; it is recorded in the trace and in the eval.
 8. **Cost per question.** Every tool request costs one more chat call to send the result back. The loop adds up `usage.cost` from every call, and the eval records the cost, steps and seconds of each question.
+
+### Addendum, 2026-11-16: `check_fit`
+9. **The schema.** `check_fit`: description "When a visitor describes a job, a role, or work they need done, call this with the task in their words. It returns the resume entries that show Joud has done that kind of work, and the technologies in the task his resume does not show. Say he can do only the parts it matched, and name the entry." Arguments: `task` (string, required, 3 to 300 characters).
+10. **Matching is plain code.** `resume.json` gives every entry a list of tags. A tag matches when it appears in the task as a whole word, ignoring case. The result is `{"task", "matches": [{"entry", "role", "dates", "evidence"}], "not_on_resume": [...]}`, where `evidence` is the bullets of that entry that contain a matched tag (or the first bullet if none does), and `not_on_resume` is every term from a fixed list of common technologies that appears in the task and in no entry's tags. With no match, `matches` is empty and the result says so.
+11. **The answer names its evidence.** The system prompt tells the model to say Joud can do the work only for matched parts, to name the entry for each, and to name everything in `not_on_resume` as not shown on his resume.
+12. **What code cannot check.** Whether the answer's "yes, he can" is a fair reading of the matched bullets is a judgement. The claim check does not attempt it. The eval's must-say and must-not-say words are the guard, and `CHECKS.md` records the limit.
 
 ### Failure handling
 - Missing key: `answer()` raises before any call, naming `OPENROUTER_API_KEY`.
