@@ -62,10 +62,10 @@ def _result(answer, steps, stopped_by, cost, pending):
 
 MONTHS = {m: i for i, m in enumerate(["jan", "feb", "mar", "apr", "may", "jun",
                                       "jul", "aug", "sep", "oct", "nov", "dec"], 1)}
-MONTH_DATE = re.compile(r"\b(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\.? (\d{1,2})\b", re.I)
+MONTH_DATE = re.compile(r"\b(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\.? (\d{1,2})\b", re.IGNORECASE)
 ISO_DATE = re.compile(r"\b\d{4}-(\d{2})-(\d{2})\b")
 HASH = re.compile(r"\b(?=[0-9a-f]*\d)(?=[0-9a-f]*[a-f])[0-9a-f]{7,40}\b")
-REPO = re.compile(r"\bjoudbitar/([\w.-]+)", re.I)
+REPO = re.compile(r"\bjoudbitar/([\w.-]+)", re.IGNORECASE)
 
 
 def _load_profile():

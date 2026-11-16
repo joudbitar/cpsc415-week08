@@ -26,3 +26,4 @@ The Week 8 lab for CPSC 415: the profile chatbot from `joudbitar/portfolio` (int
 
 ## Common mistakes
 Add to this list as they happen.
+- A forbidden phrase in the eval ("has been sent") matched an answer that said "nothing has been sent". Forbidden phrases name the claim with its subject ("I sent", "has been sent to Joud").
