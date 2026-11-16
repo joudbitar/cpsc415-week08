@@ -1,0 +1,40 @@
+{
+  "name": "Joud Bitar",
+  "summary": "Computer Science and Music student at Trinity College in Hartford, Connecticut. Grew up in Lebanon, then went to UWC Maastricht in the Netherlands. Builds software by directing AI coding agents and reviewing what they write.",
+  "projects": [
+    {"name": "TrayPal", "status": "shipped", "url": "https://traypal.app",
+     "what_is_this": "Dining analytics tools for university dining teams: every hall's menu with macros, reviews with photos, a suggestion feed, QR stickers on tables that turn a complaint into a post the dining team sees, and a command center for managers. Trinity Dining uses it. In a survey at Trinity in May 2026, students scored their dining 2.7 out of 5.",
+     "skills": ["Supabase", "AI feedback clustering"]},
+    {"name": "TradePulse", "status": "shipped", "url": null,
+     "what_is_this": "Private client work: a contract and operations platform for a cocoa and coffee trading house, tracking contracts, shipments, documents, invoices, payments and P&L. A Next.js and Supabase Postgres app on Vercel, a self-hosted Python LangGraph agent as the copilot, and a headless-Chromium PDF service. The code belongs to the client.",
+     "skills": ["Next.js", "Supabase", "Python", "LangGraph"]},
+    {"name": "Doctor sites", "status": "shipped", "url": "https://nizarbitar.com",
+     "what_is_this": "A small web agency for medical practices. Two sites in production (nizarbitar.com and souhanasreddine.com), trilingual (English, French, Arabic), built from one template after verified research on each doctor.",
+     "skills": ["Next.js"]},
+    {"name": "leet-tracker", "status": "shipped", "url": "https://leet150.vercel.app",
+     "what_is_this": "A NeetCode-150 tracker that paces you to your interview date.",
+     "skills": ["Firebase"]},
+    {"name": "cut-coach", "status": "shipped", "url": null,
+     "what_is_this": "The app he runs his diet with: meal logging, weight trends, and training pushed to his Garmin watch. Next.js and Supabase.",
+     "skills": ["Next.js", "Supabase"]},
+    {"name": "wakeman", "status": "shipped", "url": "https://github.com/joudbitar/wakeman",
+     "what_is_this": "An on-demand local dev-server proxy: every project gets a permanent .localhost URL that starts its dev server on request and stops it when idle.",
+     "skills": ["Node.js"]}
+  ],
+  "skills": [
+    {"name": "Next.js", "evidence": "TradePulse"},
+    {"name": "Supabase", "evidence": "TrayPal"},
+    {"name": "Python", "evidence": "TradePulse"},
+    {"name": "Firebase", "evidence": "leet-tracker"},
+    {"name": "Node.js", "evidence": "wakeman"}
+  ],
+  "learning": [
+    {"name": "Data structures and algorithms by hand", "how": "The NeetCode 150, solved without an AI agent."}
+  ],
+  "not_yet": [
+    {"name": "Writing code by hand without an AI agent", "why": "He builds by directing agents and reviewing what they write. Solving problems by hand is something he is practising, not something he has shipped with."}
+  ],
+  "repos": ["cpsc415-week01", "cpsc415-week02", "cpsc415-week03", "cpsc415-week04", "cpsc415-week05",
+            "cpsc415-week08", "joudbitar", "Marwan-s-Schedule", "wakeman", "playlists", "joud-skills",
+            "cut-coach", "casebooks", "leet-tracker", "shelly"]
+}
