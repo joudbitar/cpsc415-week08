@@ -34,4 +34,4 @@ A second tool, `request_intro(email, message)`, exists to test the permission ru
 ## Open questions
 - Whether a visitor ever asks about commits, or whether this tool mostly costs a second call for nothing. The eval measures the cost; only the site's logs can answer the first half.
 
-**Approved by:** 
+**Approved by:** Joud Bitar, 2026-11-15
